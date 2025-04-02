@@ -1,4 +1,12 @@
 
+    (function() {
+        const script = document.createElement("script");
+        script.src = "https://cdn.enable.co.il/licenses/enable-L407982omp8qahbj-0425-69884/init.js";
+        script.async = true;
+        document.head.appendChild(script);
+    })();
+
+
         const responseElement = document.getElementById("response");
         const textarea = document.getElementById("user-input");
         textarea.addEventListener("keypress", function (event) {
