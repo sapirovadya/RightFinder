@@ -95,12 +95,31 @@
     }
 
     function whoAmI() {
-        // הסתרת העיגול (לא מופעל בכפתור הזה)
         loaderContainer.style.display = "none";
-
+    
+        const website = document.getElementById("website-select").value || "כל זכות";
+        const category = document.getElementById("disability-select").value || "כללי";
+    
+        let responseText = "אני סייען דיגיטלי מומחה לזכויות, ";
+    
+        if (website === "כל זכות" && category === "כללי") {
+            responseText += `המשלב ידע מאתר ${website}`;
+        } else {
+            responseText += ` המשלב ידע מאתר ${website}`;
+            if (category !== "כללי") {
+                responseText += `, ובעל מומחיות מיוחדת בתחום ${category}`;
+            }
+        }
+    
         const question = "מי אני";
-        responseElement.innerHTML = `<span class='question'>${question}</span><br><span class='answer'>אני העוזר האישי שלך למציאת זכויות דרך אתר \"כל זכות\"</span>`;
+        responseElement.innerHTML = `
+            <span class='question'>${question}</span><br>
+            <span class='answer'>${responseText}</span>
+        `;
+    
+        speakText(responseText); // הקראה קולית במידת הצורך
     }
+    
 
     function readAloud() {
         const text = document.getElementById("response").innerText;
