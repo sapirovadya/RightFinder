@@ -288,6 +288,11 @@
         const sendButton = document.querySelector('button[onclick="askQuestion()"]');
         sendButton.addEventListener("focus", () => speakText("שלח"));
         sendButton.addEventListener("mouseenter", () => speakText("שלח"));
+
+        const micButton = document.getElementById("mic-button");
+        micButton.addEventListener("focus", () => speakText("הקש על מנת לדבר"));
+        micButton.addEventListener("mouseenter", () => speakText("הקש על מנת לדבר"));
+
     });
 
     // טריק להפעלת המנוע בהקלקה ראשונה
