@@ -5,248 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>זכות בקליק</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            height: 100vh;
-            background-image: url('/static/img/Lawyer.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 32px;
-            font-weight: bold;
-            margin-top: 20px;
-            color: #333;
-            background-color: rgba(255, 255, 255, 0.6);
-            padding: 15px;
-            border-radius: 12px;
-        }
-
-        #chat-container {
-            width: 70%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-end;
-            margin-bottom: 40px;
-
-        }
-
-        #button-container {
-            display: flex;
-            justify-content: flex-start;
-            gap: 10px;
-            margin-bottom: 12px;
-            width: 100%;
-            padding-right: 192px;
-        }
-
-        #response {
-            width: 95%;
-            font-size: 20px;
-            color: #333;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 10px;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            text-align: right;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        #input-container {
-            width: 92%;
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 40px;
-            padding-right: 38px;
-        }
-
-        textarea {
-            flex: 1;
-            min-height: 70px;
-            padding: 8px;
-            font-size: 18px;
-            font-family: Arial, sans-serif;
-            border: 1px solid hsl(15, 79%, 58%);
-            border-radius: 15px;
-            resize: none;
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.755);
-            margin-left: 30px;
-
-        }
-
-        button {
-            padding: 18px 30px;
-            background-color: hsl(15, 79%, 58%);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 20px;
-            border-radius: 20px;
-            height: 40px;
-        }
-
-        button:hover {
-            background-color: #444;
-        }
-
-        who-am-i {
-            margin-bottom: 15px;
-            padding: 10px 20px;
-            background-color: hsl(15, 79%, 58%);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 18px;
-            border-radius: 20px;
-            height: 30px;
-        }
-
-
-
-        .question {
-            font-weight: bold;
-            font-size: 34px;
-        }
-
-        .answer {
-            font-weight: normal;
-            font-size: 30px;
-        }
-
-        button.active-button {
-            background-color: #444;
-            /* צבע שחור-אפור כמו ה-hover */
-            color: #fff;
-            /* צבע טקסט לבן */
-        }
-
-
-        /* עיגול טעינה */
-        .loader {
-            border: 6px solid #f3f3f3;
-            /* צבע רקע של העיגול */
-            border-top: 6px solid hsl(15, 79%, 58%);
-            /* צבע הקו המסתובב */
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            /* סיבוב אינסופי */
-            margin: 0 auto;
-            /* מרכז העיגול */
-        }
-
-        /* אנימציית הסיבוב */
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* הסתרת העיגול כברירת מחדל */
-        #loader-container {
-            display: none;
-            /* לא מוצג כברירת מחדל */
-            text-align: center;
-            margin-top: 20px;
-            padding: 20px;
-            /* מרווח פנימי בתוך הריבוע */
-            background-color: rgba(255, 255, 255, 0.8);
-            /* צבע רקע לבן-שקוף */
-            border-radius: 15px;
-            /* גבולות מעוגלים */
-            border: 1px solid #ccc;
-            /* מסגרת דקה */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            /* הצללה */
-            width: 300px;
-            /* רוחב הריבוע */
-            margin: 20px auto;
-            /* מרכז הריבוע */
-        }
-
-        /* עיצוב הטקסט בתוך ריבוע הטעינה */
-        #loader-container p {
-            font-size: 24px;
-            /* גודל כתב גדול */
-            font-weight: bold;
-            /* כתב מודגש */
-            color: hsl(15, 79%, 58%);
-            /* צבע כתום כמו בכפתורים */
-            margin-top: 10px;
-            /* מרווח מעל הטקסט */
-            font-family: Arial, sans-serif;
-            /* משפחת גופנים */
-        }
-
-        .copy-button {
-            background-color: hsl(15, 79%, 58%);
-            color: #fff;
-            border: none;
-            border-radius: 25px;
-            /* אליפסה */
-            width: 70px;
-            /* גודל רחב יותר */
-            height: 30px;
-            /* גובה קטן יותר */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
-            /* גודל כתב מתאים */
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            margin-left: 10px;
-            /* ריווח מהתשובה */
-            align-self: flex-start;
-            /* מיקום הכפתור למעלה */
-            padding: 2px 5px;
-            /* מרווח פנימי */
-        }
-
-        .copy-button:hover {
-            background-color: #444;
-            /* צבע כהה יותר בזמן מעבר */
-        }
-
-        #custom-alert {
-            position: fixed;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9);
-            color: hsl(15, 79%, 58%);
-            padding: 20px 30px;
-            border: 2px solid hsl(15, 79%, 58%);
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            z-index: 1000;
-        }
-    </style>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
@@ -254,54 +13,56 @@
         ברוכים הבאים לאתר זכות בקליק
         העוזר האישי שלך במציאת זכויות
     </h1>
+    <div id="app-wrapper">
 
-    <div id="chat-container">
-        <!-- תיבת התשובה -->
-        <div id="response-container" style="position: relative; width: 89%; display: flex; align-items: flex-start;">
-            <div id="response" style="flex: 1;"></div>
-            <button class="copy-button" onclick="copyToClipboard()">📋העתק תשובה</button>
-            <button class="copy-button" onclick="readAloud()">🔊הקרא תשובה</button>
-            <button class="copy-button" onclick="stopReading()">🛑עצור הקראה</button>
-
-        </div>
-
-
-        <div id="loader-container">
-            <div class="loader"></div>
-            <p>אנא המתן לקבלת התשובה...</p>
-        </div>
-
-        <div id="button-container">
-            <button class="who-am-i" onclick="whoAmI();setActiveButton(this)" onmouseenter="speakText('מי אני')"
-                tabindex="0">מי אני</button>
-            <div style="margin-bottom: 20px;">
-                <label for="website-select"
-                    style="font-size: 22px; font-weight: bold; background-color: rgba(255,255,255,0.6); padding: 10px; border-radius: 10px;">
-                    בחר אתר:
-                </label>
-                <select id="website-select" style="font-size: 18px; padding: 8px; border-radius: 10px;"
-                    onmouseenter="speakText('בחר אתר')">
-                </select>
+        <div id="chat-container" class="hidden-at-start">
+            <!-- תיבת התשובה -->
+            <div id="response-container">
+                <div class="response-wrapper">
+                    <div id="response"></div>
+                    <div class="copy-buttons-group" id="copy-buttons">
+                        <button class="copy-button" onclick="copyToClipboard()">📋 העתק</button>
+                        <button class="copy-button" onclick="readAloud()">🔊 הקרא</button>
+                        <button class="copy-button" onclick="stopReading()">🛑 עצור</button>
+                    </div>
+                </div>
             </div>
-            <div style="margin-bottom: 20px;">
-                <label for="disability-select"
-                    style="font-size: 22px; font-weight: bold; background-color: rgba(255,255,255,0.6); padding: 10px; border-radius: 10px;">
-                    בחר תחום:
-                </label>
-                <select id="disability-select" style="font-size: 18px; padding: 8px; border-radius: 10px;"
-                    onmouseenter="speakText('בחר תחום')"></select>
+            <div id="loader-container">
+                <div class="loader"></div>
+                <p>אנא המתן לקבלת התשובה...</p>
             </div>
 
-        </div>
+            <div id="button-container">
+                <button class="who-am-i" onclick="whoAmI();setActiveButton(this)" onmouseenter="speakText('מי אני')"
+                    tabindex="0">מי אני</button>
+                <div style="margin-bottom: 20px;">
+                    <label for="website-select"
+                        style="font-size: 22px;font-weight: bold;color:  hsl(15, 79%, 58%); padding: 10px; border-radius: 10px;">
+                        בחר אתר:
+                    </label>
+                    <select id="website-select" style="font-size: 18px; padding: 8px; border-radius: 10px;"
+                        onmouseenter="speakText('בחר אתר')">
+                    </select>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label for="disability-select"
+                        style="font-size: 22px; font-weight: bold;color:  hsl(15, 79%, 58%); padding: 10px; border-radius: 10px;">
+                        בחר תחום:
+                    </label>
+                    <select id="disability-select" style="font-size: 18px; padding: 8px; border-radius: 10px;"
+                        onmouseenter="speakText('בחר תחום')"></select>
+                </div>
 
-        <!-- תיבת הטקסט והכפתור -->
-        <div id="input-container">
-            <button onclick="askQuestion()">שלח</button>
-            <textarea id="user-input" placeholder="הקלד/י את שאלתך כאן..."></textarea>
-            <button id="mic-button" class="copy-button" type="button" title="הקש על מנת לדבר">🎤הקש על מנת לדבר"</button>
+            </div>
+
+            <!-- תיבת הטקסט והכפתור -->
+            <div id="input-container">
+                <button class="send-button" onclick="askQuestion()">שלח</button>
+                <textarea id="user-input" placeholder="הקלד/י את שאלתך כאן..."></textarea>
+                <button id="mic-button" class="copy-button" type="button" title="הקש להכתבה">🎤 הקש להכתבה</button>
+            </div>
         </div>
     </div>
-
     <script src="/static/js/main.js"></script>
 
 </body>
