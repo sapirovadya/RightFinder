@@ -115,7 +115,7 @@ function whoAmI() {
         }
     }
 
-    const question = "מי אני";
+    const question = "עוזר דיגיטלי";
     updateCopyButtonsVisibility(question, responseText);
 
     speakText(responseText); // הקראה קולית במידת הצורך
@@ -263,11 +263,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // תיבת בחירה של אתרים
     const web_select = document.getElementById("website-select");
-    web_select.addEventListener("focus", () => speakText("בחר אתר"));
+    web_select.addEventListener("focus", () => speakText("בחר מאגר"));
 
     web_select.addEventListener("change", () => {
         const webselectedOption = web_select.options[web_select.selectedIndex].text;
-        speakText("נבחר האתר: " + webselectedOption);
+        speakText("נבחר מאגר: " + webselectedOption);
     });
 
     // כפתור העתק

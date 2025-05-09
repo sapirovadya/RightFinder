@@ -33,18 +33,16 @@
             </div>
 
             <div id="button-container">
-                <button class="who-am-i" onclick="whoAmI();setActiveButton(this)" onmouseenter="speakText('מי אני')"
-                    tabindex="0">מי אני</button>
-                <div style="margin-bottom: 20px;">
+                <div style="margin-bottom: 0px; margin-right: 115px;">
                     <label for="website-select"
                         style="font-size: 22px;font-weight: bold;color:  hsl(15, 79%, 58%); padding: 10px; border-radius: 10px;">
-                        בחר אתר:
+                        בחר מאגר:
                     </label>
                     <select id="website-select" style="font-size: 18px; padding: 8px; border-radius: 10px;"
-                        onmouseenter="speakText('בחר אתר')">
+                        onmouseenter="speakText('בחר מאגר')">
                     </select>
                 </div>
-                <div style="margin-bottom: 20px;">
+                <div style="margin-bottom: 20px; ">
                     <label for="disability-select"
                         style="font-size: 22px; font-weight: bold;color:  hsl(15, 79%, 58%); padding: 10px; border-radius: 10px;">
                         בחר תחום:
@@ -52,14 +50,15 @@
                     <select id="disability-select" style="font-size: 18px; padding: 8px; border-radius: 10px;"
                         onmouseenter="speakText('בחר תחום')"></select>
                 </div>
-
+                <button class="who-am-i" onclick="whoAmI();setActiveButton(this)" onmouseenter="speakText('עוזר דיגיטלי')"
+                tabindex="0">עוזר דיגיטלי</button>
             </div>
 
             <!-- תיבת הטקסט והכפתור -->
             <div id="input-container">
-                <button class="send-button" onclick="askQuestion()">שלח</button>
-                <textarea id="user-input" placeholder="הקלד/י את שאלתך כאן..."></textarea>
                 <button id="mic-button" class="copy-button" type="button" title="הקש להכתבה">🎤 הקש להכתבה</button>
+                <textarea id="user-input" placeholder="הקלד/י את שאלתך כאן..."></textarea>
+                <button class="send-button" onclick="askQuestion()">שלח</button>
             </div>
         </div>
     </div>

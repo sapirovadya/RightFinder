@@ -6,7 +6,7 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: url('/static/img/Lawyer.jpg');
+    background-image: url('/static/img/law.jpg');
     background-size: cover;
     background-position: center;
     overflow: hidden;
